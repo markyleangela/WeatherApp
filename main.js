@@ -13,6 +13,8 @@ async function fetchData(){
 
         const data = await response.json();
         console.log(data);
+        addInfo(data.name, data.sys.country, data.weather[0].description, data.weather[0].icon);
+        
 
     }catch(error){
         msg.innerHTML = "<h3>CITY NOT FOUND</h3>";
@@ -20,6 +22,26 @@ async function fetchData(){
     }
 }
 
+
+function addInfo(name, country,weather, icon){
+    const list = document.getElementById("cities-section");
+    const li = document.createElement("li");
+    li.classList.add("city");
+
+    const markup = `<div class="weather-widget" id="weather-widget-container">
+    <h1 class="city-name"> ${name} , ${country} </h1>
+    <h2 class="city-description"> ${weather} </h2>
+    <img class="city-icon" src="http://openweathermap.org/img/w/${icon}.png">  
+    </div>`
+    
+    // const markup = `<h1 class="city-name"> ${name} , ${country} </h1>
+    // <h2 class="city-description"> ${weather} </h2>
+    // <img class="city-icon" src="http://openweathermap.org/img/w/${icon}.png">`
+
+    li.innerHTML = markup;
+    list.appendChild(li);
+
+}
 
 
 
